@@ -1,0 +1,25 @@
+#EXTM3U
+
+#EXTINF:-1 group-title="Film & Dizi",KekikAkademi
+https://raw.githubusercontent.com/salihakln04/film-dizi-arsiv/refs/heads/main/KekikAkademi.m3u.txt
+
+#EXTINF:-1 group-title="Spor",Dünya Kupası 4K - TRT (1440p)
+https://raw.githubusercontent.com/salihakln04/film-dizi-arsiv/refs/heads/main/D%C3%BCnya%20Kupas%C4%B1%204K%20-%20TRT%20(1440p).m3u.txt
+
+#EXTINF:-1 group-title="Film & Dizi",JetFilm Tüm
+https://raw.githubusercontent.com/salihakln04/film-dizi-arsiv/refs/heads/main/jetfilm_tum.m3u.txt
+
+#EXTINF:-1 group-title="Film & Dizi",FilmModu Tüm
+https://raw.githubusercontent.com/salihakln04/film-dizi-arsiv/refs/heads/main/filmmodu_tum.m3u.txt
+
+#EXTINF:-1 group-title="Film & Dizi",Power Sinema
+https://raw.githubusercontent.com/salihakln04/film-dizi-arsiv/refs/heads/main/power-sinema.m3u.txt
+
+#EXTINF:-1 group-title="Film & Dizi",FHDFI Tüm
+https://raw.githubusercontent.com/salihakln04/film-dizi-arsiv/refs/heads/main/fhdfi_tum.m3u.txt
+
+#EXTINF:-1 group-title="Film & Dizi",FilmMakinesi Tüm
+https://raw.githubusercontent.com/salihakln04/film-dizi-arsiv/refs/heads/main/filmmakinesi_tum.m3u.txt
+
+#EXTINF:-1 group-title="Film & Dizi",Filmler Full
+https://raw.githubusercontent.com/salihakln04/film-dizi-arsiv/refs/heads/main/filmler_full.m3u.txt
