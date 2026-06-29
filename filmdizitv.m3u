@@ -1,25 +1,46 @@
-#EXTM3U
+import requests
 
-#EXTINF:-1 group-title="Film & Dizi",KekikAkademi
-https://raw.githubusercontent.com/salihakln04/film-dizi-arsiv/refs/heads/main/KekikAkademi.m3u.txt
+SOURCES = [
+    "https://raw.githubusercontent.com/salihakln04/Film-Dizi-Canl-TV-/refs/heads/main/filmdizitv.m3u",
+    "https://raw.githubusercontent.com/salihakln04/film-dizi-arsiv/refs/heads/main/KekikAkademi.m3u.txt",
+    "https://raw.githubusercontent.com/salihakln04/film-dizi-arsiv/refs/heads/main/D%C3%BCnya%20Kupas%C4%B1%204K%20-%20TRT%20(1440p).m3u.txt",
+    "https://raw.githubusercontent.com/salihakln04/film-dizi-arsiv/refs/heads/main/jetfilm_tum.m3u.txt",
+    "https://raw.githubusercontent.com/salihakln04/film-dizi-arsiv/refs/heads/main/filmmodu_tum.m3u.txt",
+    "https://raw.githubusercontent.com/salihakln04/film-dizi-arsiv/refs/heads/main/power-sinema.m3u.txt",
+    "https://raw.githubusercontent.com/salihakln04/film-dizi-arsiv/refs/heads/main/fhdfi_tum.m3u.txt",
+    "https://raw.githubusercontent.com/salihakln04/film-dizi-arsiv/refs/heads/main/filmmakinesi_tum.m3u.txt",
+    "https://github.com/salihakln04/film-dizi-arsiv/raw/refs/heads/main/filmler_full.m3u.txt"
+]
 
-#EXTINF:-1 group-title="Spor",Dünya Kupası 4K - TRT (1440p)
-https://raw.githubusercontent.com/salihakln04/film-dizi-arsiv/refs/heads/main/D%C3%BCnya%20Kupas%C4%B1%204K%20-%20TRT%20(1440p).m3u.txt
+playlist = ["#EXTM3U"]
 
-#EXTINF:-1 group-title="Film & Dizi",JetFilm Tüm
-https://raw.githubusercontent.com/salihakln04/film-dizi-arsiv/refs/heads/main/jetfilm_tum.m3u.txt
+for url in SOURCES:
+    print("İndiriliyor:", url)
 
-#EXTINF:-1 group-title="Film & Dizi",FilmModu Tüm
-https://raw.githubusercontent.com/salihakln04/film-dizi-arsiv/refs/heads/main/filmmodu_tum.m3u.txt
+    try:
+        r = requests.get(url, timeout=20)
+        r.raise_for_status()
 
-#EXTINF:-1 group-title="Film & Dizi",Power Sinema
-https://raw.githubusercontent.com/salihakln04/film-dizi-arsiv/refs/heads/main/power-sinema.m3u.txt
+        for line in r.text.splitlines():
 
-#EXTINF:-1 group-title="Film & Dizi",FHDFI Tüm
-https://raw.githubusercontent.com/salihakln04/film-dizi-arsiv/refs/heads/main/fhdfi_tum.m3u.txt
+            line = line.strip()
 
-#EXTINF:-1 group-title="Film & Dizi",FilmMakinesi Tüm
-https://raw.githubusercontent.com/salihakln04/film-dizi-arsiv/refs/heads/main/filmmakinesi_tum.m3u.txt
+            if not line:
+                continue
 
-#EXTINF:-1 group-title="Film & Dizi",Filmler Full
-https://raw.githubusercontent.com/salihakln04/film-dizi-arsiv/refs/heads/main/filmler_full.m3u.txt
+            if line.startswith("#EXTM3U"):
+                continue
+
+            if line.startswith("#EXTINF") or \
+               line.startswith("#EXTVLCOPT") or \
+               line.startswith("#") or \
+               line.startswith("http"):
+                playlist.append(line)
+
+    except Exception as e:
+        print("Hata:", e)
+
+with open("final_arsiv.m3u", "w", encoding="utf-8") as f:
+    f.write("\n".join(playlist))
+
+print("Tamamlandı.")
