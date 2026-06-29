@@ -14,25 +14,27 @@ SOURCES = [
 
 def fetch(url):
     try:
-        r = requests.get(url, timeout=20)
-        return r.text if r.status_code == 200 else ""
-    except:
-        return ""
+        r = requests.get(url, timeout=15)
+        if r.status_code != 200:
+            print("HATALI URL:", url)
+            return []
+        return r.text.splitlines()
+    except Exception as e:
+        print("HATA:", url, e)
+        return []
 
 all_items = set()
 
 for url in SOURCES:
     print("indiriliyor:", url)
-    data = fetch(url)
-
-    for line in data.splitlines():
+    for line in fetch(url):
         line = line.strip()
         if line and not line.startswith("#"):
             all_items.add(line)
 
 with open("filmdizitv.m3u", "w", encoding="utf-8") as f:
     f.write("#EXTM3U\n")
-    for i in sorted(all_items):
-        f.write(i + "\n")
+    for item in sorted(all_items):
+        f.write(item + "\n")
 
-print("bitti")
+print("BİTTİ")
