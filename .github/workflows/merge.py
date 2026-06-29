@@ -14,25 +14,36 @@ SOURCES = [
 
 def fetch(url):
     try:
-        r = requests.get(url, timeout=20)
-        return r.text if r.status_code == 200 else ""
-    except:
+        r = requests.get(url, timeout=30)
+        if r.status_code != 200:
+            print("HATA URL:", url)
+            return ""
+        return r.text
+    except Exception as e:
+        print("EXCEPTION:", url, e)
         return ""
 
-all_items = set()
+def main():
+    all_items = set()
 
-for url in SOURCES:
-    print("indiriliyor:", url)
-    data = fetch(url)
+    for url in SOURCES:
+        print("indiriliyor:", url)
+        data = fetch(url)
 
-    for line in data.splitlines():
-        line = line.strip()
-        if line and not line.startswith("#"):
-            all_items.add(line)
+        if not data:
+            continue
 
-with open("filmdizitv.m3u", "w", encoding="utf-8") as f:
-    f.write("#EXTM3U\n")
-    for i in sorted(all_items):
-        f.write(i + "\n")
+        for line in data.splitlines():
+            line = line.strip()
+            if line and not line.startswith("#"):
+                all_items.add(line)
 
-print("bitti")
+    with open("filmdizitv.m3u", "w", encoding="utf-8") as f:
+        f.write("#EXTM3U\n")
+        for i in sorted(all_items):
+            f.write(i + "\n")
+
+    print("BİTTİ")
+
+if __name__ == "__main__":
+    main()
