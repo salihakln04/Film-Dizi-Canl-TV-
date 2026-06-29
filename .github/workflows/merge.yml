@@ -18,8 +18,21 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install requests
-        run: pip install requests
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Debug files
+        run: ls -la
 
       - name: Run script
-        run: run: python ./merge.py
+        run: python ./merge.py
+
+      - name: Commit result
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+          git add filmdizitv.m3u
+          git commit -m "auto update" || echo "no changes"
+          git push
